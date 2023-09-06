@@ -1,9 +1,11 @@
-<button id="cls-btn">x</button>
-<iframe style="max-width:100%" src="https://wordwall.net/embed/cfbb850558774e0ea1647cd3213595cc?themeId=43&templateId=8&fontStackId=0" width="500" height="380" frameborder="0" allowfullscreen></iframe>
-<script type="module"> 
-    import OBR from '@owlbear-rodeo/sdk'
-    const btn = document.getElementById('cls-btn')
-    btn.addEventListener('click', () => {
-        OBR.popover.close('com.onrender.yogg-wheel')
-    })
-</script>
+<body>
+    <button id="cls-btn">x</button>
+    <iframe style="max-width:100%" src="https://wordwall.net/embed/cfbb850558774e0ea1647cd3213595cc?themeId=43&templateId=8&fontStackId=0" width="500" height="380" frameborder="0" allowfullscreen></iframe>
+    <script type="module"> 
+        import OBR from '@owlbear-rodeo/sdk'
+        const btn = document.getElementById('cls-btn')
+        btn.addEventListener('click', () => {
+            OBR.popover.close('com.onrender.yogg-wheel')
+        })
+    </script>
+</body>
