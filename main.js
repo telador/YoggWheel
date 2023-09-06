@@ -23,7 +23,7 @@ open.addEventListener('click', () => {
     if(select.value != '')
     OBR.popover.open({
         id: 'com.onrender.yogg-wheel',
-        url: '/popover.html?'+('link='+select.value),
+        url: `/popover.html?link=${select.value}`,
         height: 425,
         width: 500,
         anchorOrigin: {horizontal: "CENTER", vertical: "CENTER"},
