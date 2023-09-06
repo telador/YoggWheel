@@ -5,7 +5,8 @@ document.querySelector("#app").innerHTML= `
 <div class="select">
     <select id="wheels">
         <option value="">None</option>
-        <option value="sparkOfChaos">[Spark of Chaos]</option>
+        <option value="popover">[Spark of Chaos]</option>
+        <option value="popover" hidden>testing</option>
         <option value="colorNo8" hidden>[Color No. 8]</option>
     </select>
 </div>
