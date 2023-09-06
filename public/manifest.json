@@ -1,0 +1,15 @@
+{
+    "name": "Yogg Saron",
+    "version": "0.0.1",
+    "manifest_version": 1,
+    "author": "Teiador",
+    "description": "Random wheel tool.",
+    "icon": "/icon.svg",
+    "action": {
+        "title": "Spin me",
+        "icon": "/prev.svg",
+        "popover": "/",
+        "height": 200,
+        "width": 300
+    }
+}
