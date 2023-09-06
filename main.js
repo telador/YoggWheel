@@ -5,7 +5,7 @@ document.querySelector("#app").innerHTML= `
 <div class="select">
     <select id="wheels">
         <option value="">None</option>
-        <option value="popover">[Spark of Chaos]</option>
+        <option value="cfbb850558774e0ea1647cd3213595cc">[Spark of Chaos]</option>
         <option value="popover" hidden>testing</option>
         <option value="colorNo8" hidden>[Color No. 8]</option>
     </select>
@@ -23,7 +23,7 @@ open.addEventListener('click', () => {
     if(select.value != '')
     OBR.popover.open({
         id: 'com.onrender.yogg-wheel',
-        url: '/'+select.value+'.html',
+        url: '/popover.html?'+('link='+select.value),
         height: 425,
         width: 500,
         anchorOrigin: {horizontal: "CENTER", vertical: "CENTER"},
