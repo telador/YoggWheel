@@ -2,33 +2,68 @@ import OBR from '@owlbear-rodeo/sdk'
 import '/style.css'
 
 document.querySelector("#app").innerHTML= `
-<div class="select">
-    <select id="wheels">
-        <option value="">None</option>
-        <option value="cfbb850558774e0ea1647cd3213595cc">[Spark of Chaos]</option>
-        <option value="popover" hidden>testing</option>
-        <option value="colorNo8" hidden>[Color No. 8]</option>
-    </select>
-</div>
-<br>
 <div>
-    <button id="open-btn">Open</button>
+    <form id="upload">
+        <input type="file" id="file" accept=".json">
+        <button>Upload</button>    
+    </form>
 </div>
 `
-const select = document.getElementById('wheels')
-const open = document.getElementById('open-btn')
-const close = document.getElementById('close-btn')
-open.addEventListener('click', () => {
-    OBR.popover.close('com.onrender.yogg-wheel')
-    if(select.value != '')
-    OBR.popover.open({
-        id: 'com.onrender.yogg-wheel',
-        url: `/popover.html?link=${select.value}`,
-        height: 425,
-        width: 500,
-        anchorOrigin: {horizontal: "CENTER", vertical: "CENTER"},
-        transformOrigin: {horizontal: "CENTER", vertical: "CENTER"},
-        disableClickAway: true,
-        hidePaper: true
-    })
-})
+OBR.onReady(() => {
+    const select = document.getElementById('wheels')
+    const form = document.getElementById('upload')
+    const file = document.getElementById('file')
+
+    form.addEventListener('submit', handleSubmit)
+
+    function handleSubmit(event){
+        event.preventDefault();
+        if (!file.value.length) return;
+        let reader = new FileReader();
+        reader.onload = logFile;
+        reader.readAsText(file.files[0]);
+
+    }
+
+    function logFile (event) {
+        let str = event.target.result;
+        let json = JSON.parse(str);
+        //console.log('string', str);
+        //console.log('json', json["prizes"]);
+        localStorage.setItem("wheel", str)
+        OBR.modal.open({
+            id: "com.onrender.wheel/modal",
+            url: "/wheel.html",
+            hidePaper: true,
+            hideBackdrop: true,
+            fullScreen: true
+        });
+        
+    }
+    
+    OBR.broadcast.onMessage("com.onrender.wheel.spin", (event) => {
+        const getName = (party) => {
+            let name = 'unknown';
+            for (let i = 0; i < party.length; i++){
+                if (party[i].connectionId == event.connectionId){
+                    name = party[i].name
+                    break
+                }
+            }
+            localStorage.setItem("wheel", event.data[1]);
+            OBR.popover.open({
+                id: "com.onrender.wheel/pop_wheel",
+                url: "/wheel_viewer.html?"+("&rotation="+event.data[0])+("&wheel_owner="+encodeURIComponent(name)),
+                hidePaper: true,
+                //hideBackdrop: true,
+                width: 400,
+                height: 500,
+                disableClickAway: true,
+                anchorOrigin: {horizontal:"CENTER", vertical:"BOTTOM"},
+                marginThreshold: 50
+            });
+        }
+        OBR.party.getPlayers().then((party) => getName(party))
+        
+    });
+});
