@@ -1,17 +1,15 @@
 import OBR from '@owlbear-rodeo/sdk'
-
-  let prizes = [
-    { 
-      text: "Nothing",
-      fulltext: "Big ol' nothing",
-      color: "hsl(43 74% 66%)",
-      reaction: "shocked" 
-    }
-  ];
-  console.log(prizes)
+/**
+ * Prize data will space out evenly on the deal wheel based on the amount of items available.
+ * @param text [string] name of the prize
+ * @param color [string] background color of the prize
+ * @param reaction ['resting' | 'dancing' | 'laughing' | 'shocked'] Sets the reaper's animated reaction
+ */
+  let prizes = [];
+  
   const str = localStorage.getItem("wheel");
   prizes = JSON.parse(str)["prizes"];
-    
+
 
   const wheel = document.querySelector(".deal-wheel");
   const spinner = wheel.querySelector(".spinner");
@@ -95,24 +93,25 @@ import OBR from '@owlbear-rodeo/sdk'
     reaper.dataset.reaction = prizeNodes[selected].dataset.reaction;
     OBR.popover.open({
       id: "com.onrender.wheel/pop",
-      url: "/popover.html?"+("&msg="+encodeURIComponent(prizes[selected].fulltext)),
+      url: "/src/popover.html?"+("&msg="+encodeURIComponent(prizes[selected].fulltext)),
       height: 300,
       width: 300,
-      anchorOrigin: {horizontal: "RIGHT", vertical: "CENTER"},
-      transformOrigin: {horizontal: "RIGHT", vertical: "CENTER"},
+      anchorOrigin: {horizontal: "RIGHT", vertical: "BOTTOM"},
+      transformOrigin: {horizontal: "RIGHT", vertical: "BOTTOM"},
       hidePaper: true,
-      marginThreshold: 100
+      marginThreshold: 50
     });
   };
   
-  trigger.addEventListener("click", () => {
+  window.addEventListener("load", () => {
     if (reaper.dataset.reaction !== "resting") {
       reaper.dataset.reaction = "resting";
     }
   
     trigger.disabled = true;
-    rotation = Math.floor(Math.random() * 360 + spinertia(2000, 5000));
-    OBR.broadcast.sendMessage("com.onrender.wheel.spin", [""+rotation, str]);
+    const urlp=[];let s=location.toString().split('?');s=s[1].split('&');for(let i=0;i<s.length;i++){let u=s[i].split('=');urlp[u[0]]=u[1];}
+    rotation = urlp['rotation'];
+    
     prizeNodes.forEach((prize) => prize.classList.remove(selectedClass));
     wheel.classList.add(spinClass);
     spinner.style.setProperty("--rotate", rotation);
@@ -123,7 +122,7 @@ import OBR from '@owlbear-rodeo/sdk'
   closer.addEventListener("click", ()=> {
     trigger.disabled = true;
     closer.disabled = true;
-    OBR.modal.close("com.onrender.wheel/modal")
+    OBR.popover.close("com.onrender.wheel/pop_wheel")
   })
 
   spinner.addEventListener("transitionend", () => {
@@ -137,5 +136,4 @@ import OBR from '@owlbear-rodeo/sdk'
   });
   
   setupWheel();
-
   

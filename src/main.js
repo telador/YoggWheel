@@ -1,5 +1,5 @@
 import OBR from '@owlbear-rodeo/sdk'
-import '/style.css'
+import '/src/style.css'
 
 document.querySelector("#app").innerHTML= `
 <div>
@@ -33,7 +33,7 @@ OBR.onReady(() => {
         localStorage.setItem("wheel", str)
         OBR.modal.open({
             id: "com.onrender.wheel/modal",
-            url: "/wheel.html",
+            url: "/src/wheel.html",
             hidePaper: true,
             hideBackdrop: true,
             fullScreen: true
@@ -53,7 +53,7 @@ OBR.onReady(() => {
             localStorage.setItem("wheel", event.data[1]);
             OBR.popover.open({
                 id: "com.onrender.wheel/pop_wheel",
-                url: "/wheel_viewer.html?"+("&rotation="+event.data[0])+("&wheel_owner="+encodeURIComponent(name)),
+                url: "/src/wheel_viewer.html?"+("&rotation="+event.data[0])+("&wheel_owner="+encodeURIComponent(name)),
                 hidePaper: true,
                 //hideBackdrop: true,
                 width: 400,

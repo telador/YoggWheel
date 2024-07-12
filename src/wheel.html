@@ -3,17 +3,6 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div id="" style="background: #420C09; border: 1px dotted #EC9706; border-radius: 10px;">
-      <br>
-      <div id="wheel_owner"  style="font-size: 20px; background: linear-gradient(to right top, #3DED97, #FFFD37); -webkit-text-fill-color: transparent; -webkit-background-clip: text; text-align: center; background-clip: text; color: transparent;">
-      </div>
-      <br>
-    </div>
-    <script type="module">
-      const urlp=[];let s=location.toString().split('?');s=s[1].split('&');for(let i=0;i<s.length;i++){let u=s[i].split('=');urlp[u[0]]=u[1];}
-      const a = document.getElementById('wheel_owner')
-      a.append(" "+decodeURIComponent(urlp['wheel_owner']).replace(/\+/g, ' ')+" is spinning a wheel ")
-    </script>
     <div class="deal-wheel">
         <ul class="spinner"></ul>
         <figure class="cap">
@@ -156,8 +145,8 @@
           </svg>
         </figure>
         <div class="ticker"></div>
-        <button class="btn-spin" hidden>Spin the wheel</button>
+        <button class="btn-spin">Spin the wheel</button>
         <button class="btn-close">Close the wheel</button>
     </div>
-    <script type="module" src="/wheel_viewer.js"></script>
+    <script type="module" src="/src/wheel.js"></script>
 </body>
