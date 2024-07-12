@@ -7,7 +7,7 @@ import OBR from '@owlbear-rodeo/sdk'
  */
   let prizes = [];
   
-  const str = localStorage.getItem("wheel");
+  const str = localStorage.getItem("tempWheel");
   prizes = JSON.parse(str)["prizes"];
 
 
@@ -60,12 +60,6 @@ import OBR from '@owlbear-rodeo/sdk'
     prizeNodes = wheel.querySelectorAll(".prize");
   };
   
-  const spinertia = (min, max) => {
-    min = Math.ceil(min);
-    max = Math.floor(max);
-    return Math.floor(Math.random() * (max - min + 1)) + min;
-  };
-  
   const runTickerAnimation = () => {
     // https://css-tricks.com/get-value-of-css-rotation-through-javascript/
     const values = spinnerStyles.transform.split("(")[1].split(")")[0].split(",");
@@ -93,7 +87,7 @@ import OBR from '@owlbear-rodeo/sdk'
     reaper.dataset.reaction = prizeNodes[selected].dataset.reaction;
     OBR.popover.open({
       id: "com.onrender.wheel/pop",
-      url: "/src/popover.html?"+("&msg="+encodeURIComponent(prizes[selected].fulltext)),
+      url: "/src/popover.html?"+("&msg="+selected)+("&own=false"),
       height: 300,
       width: 300,
       anchorOrigin: {horizontal: "RIGHT", vertical: "BOTTOM"},
@@ -123,6 +117,8 @@ import OBR from '@owlbear-rodeo/sdk'
     trigger.disabled = true;
     closer.disabled = true;
     OBR.popover.close("com.onrender.wheel/pop_wheel")
+    localStorage.removeItem("wheel")
+    localStorage.removeItem("tempWheel")
   })
 
   spinner.addEventListener("transitionend", () => {

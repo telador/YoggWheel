@@ -8,8 +8,7 @@ import OBR from '@owlbear-rodeo/sdk'
       reaction: "shocked" 
     }
   ];
-  console.log(prizes)
-  const str = localStorage.getItem("wheel");
+  const str = localStorage.getItem(localStorage.getItem("wheel"));
   prizes = JSON.parse(str)["prizes"];
     
 
@@ -95,7 +94,7 @@ import OBR from '@owlbear-rodeo/sdk'
     reaper.dataset.reaction = prizeNodes[selected].dataset.reaction;
     OBR.popover.open({
       id: "com.onrender.wheel/pop",
-      url: "/src/popover.html?"+("&msg="+encodeURIComponent(prizes[selected].fulltext)),
+      url: "/src/popover.html?"+("&msg="+selected)+("&own=true"),
       height: 300,
       width: 300,
       anchorOrigin: {horizontal: "RIGHT", vertical: "CENTER"},
@@ -124,6 +123,7 @@ import OBR from '@owlbear-rodeo/sdk'
     trigger.disabled = true;
     closer.disabled = true;
     OBR.modal.close("com.onrender.wheel/modal")
+    localStorage.removeItem("wheel")
   })
 
   spinner.addEventListener("transitionend", () => {

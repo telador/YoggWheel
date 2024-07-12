@@ -1,6 +1,6 @@
 {
     "name": "Wheel of Yogg-Saron",
-    "version": "0.0.1",
+    "version": "0.0.2",
     "manifest_version": 1,
     "author": "Teiador",
     "description": "Random wheel tool.",
@@ -9,7 +9,7 @@
         "title": " <maniacal cackling>",
         "icon": "/prev.svg",
         "popover": "/",
-        "height": 200,
+        "height": 400,
         "width": 300
     }
 }

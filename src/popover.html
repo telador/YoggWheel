@@ -1,6 +1,6 @@
 <body>
     <div id="prize_cont" style="background: #420C09; border: 2px dotted #EC9706; border-radius: 15px; position: absolute; top: 50%; left: 50%;
-    transform: translate(-50%, -50%); min-width: 100px;">
+    transform: translate(-50%, -50%); min-width: 200px;">
         <br>
         <div id="prize_full" style="font-size: 30px; background: linear-gradient(to right top, #3DED97, #FFFD37); -webkit-text-fill-color: transparent; -webkit-background-clip: text; text-align: center; background-clip: text; color: transparent;">
         </div>
@@ -9,9 +9,14 @@
     <script type="module">
         const urlp=[];let s=location.toString().split('?');s=s[1].split('&');for(let i=0;i<s.length;i++){let u=s[i].split('=');urlp[u[0]]=u[1];}
         const a = document.getElementById('prize_full');
-        const text = decodeURIComponent(urlp['msg']).replace(/\+/g, ' '); 
+        const number = urlp['msg'];
+        const own = urlp['own']; 
+        const json = JSON.parse(localStorage.getItem((own=='true') ? localStorage.getItem("wheel"): "tempWheel"))
+        const text = json["prizes"][number].fulltext
         a.append(text)
-        if(text.length > 50)
+        if(text.length > 120)
+            a.style.fontSize = "15px";
+        else if(text.length > 50)
             a.style.fontSize = "20px";
     </script>
 </body>
