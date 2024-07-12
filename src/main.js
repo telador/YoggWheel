@@ -2,51 +2,51 @@ import OBR from '@owlbear-rodeo/sdk'
 import '/src/style.css'
 
 document.querySelector("#app").innerHTML= `
-<div>
-<button id="switch-btn">Create Wheel</button>
-</div>
-<div id="spin-div">
-<div>
-    <form id="upload">
-        <input type="text" id="name" maxlenght="20">
-        <input type="file" id="file" accept=".json">
-        <button>Upload</button>    
-    </form>
+<div class="container">
+<button id="switch-btn" class="btn-cr">Create Wheel</button>
+
 </div>
 <br>
+<div id="spin-div" class="container">
+    <div>
+        <form id="upload">
+            <input type="text" id="name" maxlenght="20" placeholder="Wheel Name">
+            <input type="file" id="file" accept=".json">
+            <br>
+            <button class="btn-cr">Upload</button>    
+        </form>
+    </div>
+    <br>
 
-<div>
-    <select id="wheels">
-        <option value="">None</option>
-    </select>
+    <div>
+        <select id="wheels" class="select">
+            <option value="">None</option>
+        </select>
+    </div>
+    <div>
+        <button id="open-btn" class="btn-cr">Open</button>
+        <button id="save-btn" class="btn-cr">Download</button>
+    </div>
 </div>
-<div>
-    <button id="open-btn">Open</button>
-    <button id="save-btn">Download</button>
-</div>
-</div>
-<div id="create-div" hidden>
-    <input type="text" id="newName" maxlenght="20">
+<div id="create-div" class="container" hidden>
+    <input type="text" id="newName" maxlenght="20" placeholder="Wheel Name">
     <input type="number" id="sector_count" hidden></input>
     <input type="number" id="sector_id" value=1 hidden></input>
-    <div id="sector_0" hidden>
+    <div id="sector_0" class="container" hidden>
         <input type="text" id="text" placeholder="text"></input>
-        <br>
         <input type="text" id="fulltext" placeholder="fulltext"></input>
-        <br>
         <input type="color" id="color"></input>
-        <br>
-        <select id="reaction">
+        <select id="reaction" class="select">
             <option value="resting">Resting</option>
             <option value="dancing">Dancing</option>
             <option value="laughing">Laughing</option>
             <option value="shocked">Shocked</option>
         </select>
-        <br>
-        <button id="del-btn">delete</button>
+        <button id="del-btn" class="btn-cr">delete</button>
     </div>
-    <button id="add-btn">add</button>
-    <button id="gen-btn">Generate</button>
+    <button id="add-btn" class="btn-cr">add</button>
+    <button id="gen-btn" class="btn-cr">Generate</button>
+    <div id="sectors" class="scrollable-div"></div>
 </div>
 `
 
@@ -90,18 +90,16 @@ OBR.onReady(() => {
     gen.addEventListener("click", () => {
         const counter = document.getElementById('sector_count')
         const newName = document.getElementById('newName')
-        const create_div = document.getElementById('create-div')
+        const sectors = document.getElementById('sectors')
         if(counter.value != 0 && newName.value != ''){
-            const k = create_div.children
-            //console.log(k.length)
+            const k = sectors.children
             let str = '{\n\t"prizes":['
             for (let t=0;t<k.length;t++){
                 if (k[t].id.slice(0, 7) == "sector_" && k[t].id != "sector_0" && k[t].id != "sector_id" && k[t].id != "sector_count"){
                     let p = k[t].children
-                    //console.log(k[t].id);
                     if (str.slice(-1) != '[')
                         str += ','
-                    str += '\n\t\t{\n\t\t\t"text":"'+p[0].value+'",\n\t\t\t"fulltext":"'+p[2].value+'",\n\t\t\t"color":"'+p[4].value+'",\n\t\t\t"reaction":"'+p[6].value+'"\n\t\t}'
+                    str += '\n\t\t{\n\t\t\t"text":"'+p[0].value+'",\n\t\t\t"fulltext":"'+p[1].value+'",\n\t\t\t"color":"'+p[2].value+'",\n\t\t\t"reaction":"'+p[3].value+'"\n\t\t}'
                 }
             }
             str += '\n\t]\n}'
@@ -124,9 +122,9 @@ OBR.onReady(() => {
         let el = or.cloneNode(true)
         el.id = 'sector_'+sector_id.value
         el.removeAttribute('hidden')
-        el.childNodes[1].value = ""+sector_id.value
-        el.childNodes[9].value = getRandomColor()
-        const del_b = el.childNodes[17]
+        el.children['text'].value = ""+sector_id.value
+        el.children['color'].value = getRandomColor()
+        const del_b = el.children['del-btn']
         del_b.addEventListener("click", (e) => {
             let sector_count = document.getElementById('sector_count')
             sector_count--    
@@ -135,7 +133,7 @@ OBR.onReady(() => {
         });
         sector_id.value++
         sector_count.value++
-        const tar = document.getElementById("create-div")
+        const tar = document.getElementById("sectors")
         tar.appendChild(el)
     });
 

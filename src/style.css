@@ -4,6 +4,107 @@
   box-sizing: border-box;
 }
 
+.root {
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+
+  color-scheme: light dark;
+  color: #fff788de;
+  background: linear-gradient(to right top, #0c0d2b, #211a02) fixed;
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-text-size-adjust: 100%;
+}
+
+.btn-cr {
+  border-radius: 0.8em;
+  border: 1px solid transparent;
+  padding: 0.6em 1.2em;
+  font-size: 1em;
+  font-weight: 500;
+  font-family: inherit;
+  background-color: #301d64;
+  color: #fff788de;
+  cursor: pointer;
+  transition: border-color 0.25s;
+}
+.btn-cr:hover {
+  border-color: #fff788de;
+}
+.btn-cr:focus,
+.btn-cr:focus-visible {
+  outline: 0.1em auto -webkit-focus-ring-color;
+}
+
+.scrollable-div {
+  max-height: 300px;
+  overflow-y: scroll;
+}
+
+select {
+  /* Reset Select */
+  appearance: none;
+  outline: 0.1em #646cff;
+  border: 0.1em;
+  box-shadow: none;
+  /* Personalize */
+  flex: 1;
+  padding: 0.1em 1em;
+  color: #fff788de;
+  background-color: #301d64;
+  background-image: none;
+  cursor: pointer;
+}
+/* Remove IE arrow */
+select::-ms-expand {
+  display: none;
+}
+/* Custom Select wrapper */
+.select {
+  position: relative;
+  left: 50%;
+  transform: translate(-50%);
+  margin-bottom: 5px;
+  font-size: 1em;
+  display: flex;
+  width: 10em;
+  height: 1.7em;
+  border-radius: .25em;
+  overflow: hidden;
+}
+/* Arrow */
+.select::after {
+  content: '\25BC';
+  position: absolute;
+  top: 0;
+  right: 0;
+  padding: 0.15em;
+  background-color: #3b3d56;
+  transition: .25s all ease;
+  pointer-events: none;
+}
+/* Transition */
+.select:hover::after {
+  color: #f39c12;
+}
+
+
+#color, #text, #fulltext, #name, #newName {
+  width: 7em;
+  font-size: 1em;
+  margin-bottom: 5px;
+  outline:none;
+  background: linear-gradient(to left top, #392473, #1c0f3e) fixed;
+  border-radius: 0.25em;
+  border: 1px solid rgba(255,255,255,0.2);
+  color: #fff788de;
+  transition: all 0.5s;
+}
+
 html,
 body {
   height: 100%;
