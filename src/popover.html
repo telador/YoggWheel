@@ -14,9 +14,9 @@
         const json = JSON.parse(localStorage.getItem((own=='true') ? localStorage.getItem("wheel"): "tempWheel"))
         const text = json["prizes"][number].fulltext
         a.append(text)
-        if(text.length > 120)
+        if(text.length > 160)
             a.style.fontSize = "15px";
-        else if(text.length > 50)
+        else if(text.length > 80)
             a.style.fontSize = "20px";
     </script>
 </body>

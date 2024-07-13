@@ -4,6 +4,94 @@
   box-sizing: border-box;
 }
 
+.sector {
+  display: grid;
+  gap: 5px;
+  grid-template-areas: "text fulltext fulltext" "color reaction delete";
+  grid-template-columns: 1fr 2fr 1fr;
+  grid-auto-rows: 0.8fr;
+
+}
+
+.text-input {
+  grid-area: text;
+}
+
+.fulltext-input {
+  grid-area: fulltext;
+}
+
+.color-input {
+  grid-area: color;
+}
+
+.reaction-select {
+  grid-area: reaction;
+}
+.delete-sector {
+  grid-area: delete;
+}
+
+.create-panel {
+  display: grid;
+  gap: 8px;
+  grid-template-areas: "create generate" "name add" "sector sector";
+  grid-template-columns: repeat(2, 1fr);
+  grid-auto-rows: 1fr, 1fr, auto;
+}
+
+.app-panel {
+  display: grid;
+  gap: 8px;
+  grid-template-areas: "create ." "name ." "file file" "upload . " "select select" "open download" "edit delete";
+  grid-template-columns: repeat(2, 1fr);
+  grid-auto-rows: 1fr;
+}
+
+.edit-wheel {
+  grid-area: edit;
+}
+
+.delete-wheel {
+  grid-area: delete;
+}
+
+.add-sector {
+  grid-area: add;
+}
+
+.generate-wheel {
+  grid-area: generate;
+}
+
+.create-wheel {
+  grid-area: create;
+}
+
+.name-input {
+  grid-area: name;
+}
+
+.file-input {
+  grid-area: file;
+}
+
+.upload-button {
+  grid-area: upload;
+}
+
+.wheel-select {
+  grid-area: select;
+}
+
+.open-wheel {
+  grid-area: open;
+}
+
+.download-wheel {
+  grid-area: download;
+}
+
 .root {
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
@@ -41,69 +129,17 @@
 }
 
 .scrollable-div {
+  grid-area: sector;
   max-height: 300px;
   overflow-y: scroll;
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
 }
 
-select {
-  /* Reset Select */
-  appearance: none;
-  outline: 0.1em #646cff;
-  border: 0.1em;
-  box-shadow: none;
-  /* Personalize */
-  flex: 1;
-  padding: 0.1em 1em;
-  color: #fff788de;
-  background-color: #301d64;
-  background-image: none;
-  cursor: pointer;
-}
-/* Remove IE arrow */
-select::-ms-expand {
+.scrollable-div::-webkit-scrollbar {
   display: none;
 }
-/* Custom Select wrapper */
-.select {
-  position: relative;
-  left: 50%;
-  transform: translate(-50%);
-  margin-bottom: 5px;
-  font-size: 1em;
-  display: flex;
-  width: 10em;
-  height: 1.7em;
-  border-radius: .25em;
-  overflow: hidden;
-}
-/* Arrow */
-.select::after {
-  content: '\25BC';
-  position: absolute;
-  top: 0;
-  right: 0;
-  padding: 0.15em;
-  background-color: #3b3d56;
-  transition: .25s all ease;
-  pointer-events: none;
-}
-/* Transition */
-.select:hover::after {
-  color: #f39c12;
-}
 
-
-#color, #text, #fulltext, #name, #newName {
-  width: 7em;
-  font-size: 1em;
-  margin-bottom: 5px;
-  outline:none;
-  background: linear-gradient(to left top, #392473, #1c0f3e) fixed;
-  border-radius: 0.25em;
-  border: 1px solid rgba(255,255,255,0.2);
-  color: #fff788de;
-  transition: all 0.5s;
-}
 
 html,
 body {
