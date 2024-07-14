@@ -4,6 +4,10 @@ let app = document.querySelector("#app");
 app.innerHTML= `
 <div class="app-panel panel">
     <button class="create-wheel btn-cr" style="min-width: 150px">Create Wheel</button>
+    <div class="delete-sure-panel">
+        <input class="delete-sure-input" type="text" maxlenght="7" placeholder="Type DETETE to confirm">
+        <button class="delete-sure btn-cr">I'm sure.</button>
+    </div>
     <input class="name-input" type="text" maxlength="20" placeholder="Wheel Name" />
     <input class="file-input" type="file" accept=".json" />
     <button class="upload-button btn-cr">Upload</button>
@@ -12,8 +16,8 @@ app.innerHTML= `
     </select>
     <button class="open-wheel btn-cr">Open</button>
     <button class="download-wheel btn-cr">Download</button>
-    <button class="edit-wheel btn-cr">Edit(TBA)</button>
-    <button class="delete-wheel btn-cr">Delete(TBA)</button>
+    <button class="edit-wheel btn-cr">Edit</button>
+    <button class="delete-wheel btn-cr">Delete</button>
 </div>
 <div class="create-panel panel" style="display: none;">
     <button class="create-wheel btn-cr" style="min-width: 150px">Spin Wheel</button>
@@ -38,8 +42,6 @@ app.innerHTML= `
     <div class="scrollable-div"></div>
 </div>
 `
-
- // @param reaction ['resting' | 'dancing' | 'laughing' | 'shocked'] Sets the reaper's animated reaction
 OBR.onReady(() => {
     const select = document.getElementsByClassName('wheel-select')[0]
     const open = document.getElementsByClassName('open-wheel')[0]
@@ -50,6 +52,9 @@ OBR.onReady(() => {
     const add = document.getElementsByClassName('add-sector')[0]
     const gen = document.getElementsByClassName('generate-wheel')[0]
     const save = document.getElementsByClassName('download-wheel')[0]
+    const edit = document.getElementsByClassName('edit-wheel')[0]
+    const del = document.getElementsByClassName('delete-wheel')[0]
+    const del_a = document.getElementsByClassName('delete-sure')[0]
     let panels = document.getElementsByClassName('panel')
     
     for (let i = 0; i < switch_btn.length; i++){
@@ -61,6 +66,52 @@ OBR.onReady(() => {
             app.style.alignSelf = ((i == 0) ? "normal" : "center");
         });
     }
+
+    edit.addEventListener("click", () => {
+        if (select.value != ''){
+            switch_btn[0].click()
+            let newName = document.getElementsByClassName('name-input')[1]
+            newName.value = select.value.slice(0, -2);
+            const prizes = JSON.parse(localStorage.getItem(select.value))["prizes"];
+            let sectors = document.getElementsByClassName('sector')
+            /*
+            const len = sectors.length
+            for (let i = 1; i < len; i++){
+                console.log(sectors[1].children)
+                sectors[1].children[4].click()
+            }
+            */
+            for (let i = 0; i < prizes.length; i++){
+                add.click()
+                const count = document.getElementById('sector_count').value;
+                let sector = (sectors[sectors.length-1].children);
+                sector[0].value = prizes[i]["text"]
+                sector[1].value = prizes[i]["fulltext"]
+                sector[2].value = prizes[i]["color"]
+                sector[3].value = prizes[i]["reaction"];
+            }
+        }
+    });
+
+    del.addEventListener("click", () => {
+        if (select.value != ''){
+            let sure_panel = document.getElementsByClassName('delete-sure-panel')[0]
+            sure_panel.style.display = "grid";
+        }
+    });
+
+    del_a.addEventListener("click", () => {
+        let sure = document.getElementsByClassName('delete-sure-input')[0]
+        if (sure.value === "DELETE"){
+            localStorage.removeItem(select.value)
+            //console.log('delete confirmed', select.value)
+            updateSelect()
+            let sure_panel = document.getElementsByClassName('delete-sure-panel')[0]
+            sure_panel.style.display = "none";
+        }
+        sure.value = ""
+    });
+
     save.addEventListener("click", () => {
         if (select.value != ''){
             const t = localStorage.getItem(select.value);
@@ -136,17 +187,24 @@ OBR.onReady(() => {
         tar.appendChild(el) 
     });
 
-    for (let key in localStorage){
-        if (key.slice(-2)=="SW"){
-            let el = document.createElement("option")
-            el.text = key.slice(0, key.length-2)
-            el.value = key
-            el.id = el.value
-            select.appendChild(el)
+    function updateSelect() {
+        let ops = select.children
+        for (let i = 1; i < ops.length; i++){
+            ops[i].remove()
+        }
+        for (let key in localStorage){
+            if (key.slice(-2)=="SW"){
+                let el = document.createElement("option")
+                el.text = key.slice(0, key.length-2)
+                el.value = key
+                el.id = el.value
+                select.appendChild(el)
+            }
         }
     }
+    updateSelect()
 
-    form.addEventListener('submit', handleSubmit)
+    form.addEventListener('click', handleSubmit)
 
     function handleSubmit(event){
         event.preventDefault();
@@ -160,11 +218,8 @@ OBR.onReady(() => {
     function logFile (event) {
         let str = event.target.result;
         localStorage.setItem(name.value+"SW", str)
-        let el = document.createElement("option")
-        el.text = name.value
-        el.value = name.value+"SW"
-        el.id = el.value
-        select.appendChild(el)  
+        
+        updateSelect()
     };
 
     open.addEventListener("click", () => {
