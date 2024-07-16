@@ -155,12 +155,8 @@ OBR.onReady(() => {
             
             str += '\n\t]\n}'
             localStorage.setItem(newName.value+"SW", str);
-            let el = document.createElement("option")
-            el.text = newName.value
-            el.value = newName.value+"SW"
-            el.id = el.value
-            select.appendChild(el)
-            select.value = el.value
+            updateSelect();
+            select.value = newName.value+"SW"
             save.click()
             switch_btn[1].click()
         }
