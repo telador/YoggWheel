@@ -150,7 +150,8 @@ OBR.onReady(() => {
                 console.log(p)
                 if (str.slice(-1) != '[')
                     str += ','
-                str += '\n\t\t{\n\t\t\t"text":"'+p[0].value+'",\n\t\t\t"fulltext":"'+p[1].value+'",\n\t\t\t"color":"'+p[2].value+'",\n\t\t\t"reaction":"'+p[3].value+'"\n\t\t}'
+                str += "\n"+JSON.stringify({text: p[0].value, fulltext: p[1].value, color: p[2].value, reaction: p[3].value});
+                
             }
             
             str += '\n\t]\n}'

@@ -35,9 +35,11 @@ import OBR from '@owlbear-rodeo/sdk'
       spinner.insertAdjacentHTML(
         "beforeend",
         `<li class="prize" data-reaction=${reaction} style="--rotate: ${rotation}deg">
-          <span class="text">${text}</span>
+          <span class="text"></span>
         </li>`
       );
+      let prize = document.getElementsByClassName('prize')[i];
+      prize.textContent = text;
     });
   };
   

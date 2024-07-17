@@ -13,7 +13,7 @@
         const own = urlp['own']; 
         const json = JSON.parse(localStorage.getItem((own=='true') ? localStorage.getItem("wheel"): "tempWheel"))
         const text = json["prizes"][number].fulltext
-        a.append(text)
+        a.textContent = text
         if(text.length > 160)
             a.style.fontSize = "15px";
         else if(text.length > 80)
