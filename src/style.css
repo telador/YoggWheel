@@ -219,6 +219,9 @@ body {
   grid-area: spinner;
 }
 
+ul {
+  padding-inline-start: 0px;
+}
 .prize {
   position: relative;
   display: flex;

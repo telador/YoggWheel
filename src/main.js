@@ -186,8 +186,9 @@ OBR.onReady(() => {
 
     function updateSelect() {
         let ops = select.children
-        for (let i = 1; i < ops.length; i++){
-            ops[i].remove()
+        const tmp = ops.length;
+        for (let i = 1; i < tmp; i++){
+            ops[1].remove()
         }
         for (let key in localStorage){
             if (key.slice(-2)=="SW"){
