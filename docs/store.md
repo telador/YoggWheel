@@ -67,10 +67,16 @@ There is no option to spin just for yourself or to limit who will see the wheel.
 
 **video of spin with viewer here**
 
-### Plans & Ideas
+
+### Broadcast
+
+Other extensions are welcome to use "com.onrender.wheel.spin" broadcast channel, which triggers viewer wheel. But it's data consists of an array of full rotation degree and stringified wheel's JSON. *I'll try to add broadcast channel to trigger just a wheel without need for rotaiton from your side in near future.*
+
+## Plans & Ideas
 
 List of features to be added when I finalize their concept or drop them:
 + history: if you close your wheel before it ended it's spin - you don't see what you got. History panel with some timestamps may fix this issue or so I hope.
++ broadcast: don't think it's a priority, but channel to catch wheel JSONs from other extensions can be useful. Maybe with some simplification like all color's and reaction are random so other extensions need only to send text|fulltext pairs. Or even simplify text to numbers and accept just fulltext array.   
 + steal: still can't decide if this is good idea. Before you close your viewer wheel - steal button will save it to your wheel selection. Some 'hidden from others until it'll land on it' stuff in fulltext can be looked on without your consent - which is bad and you always can just ask for the wheel file after the game. So maybe not.
 + hidden spin: option to roll without showing it to other players. Isn't hard, just feels contradicting to the spirit of this extension.
 + copy-paste create: I think I can add create wheel as one big text input to just paste JSON there, but it feels unneeded with file import option and has same validation problem.  
