@@ -19,10 +19,11 @@ manifest: https://yoggwheel.onrender.com/manifest.json
 
 Importing, Creating or Editing - if you use name that is already used by other wheel it will replace it.
 
-Extension has two panels:
+Extension has three panels:
 
 + Spin & Management of Wheels
 + Create Wheel
++ Spin History
 
 ### Import wheel
 
@@ -65,18 +66,28 @@ Not much to say here. If you lost JSON file of a wheel when it was created you c
 
 There is no option to spin just for yourself or to limit who will see the wheel. Other players in the room will see scaled down version of your spin with your name above it and some delay. Please have mercy on me and don't demant so it'll work when 2+ players rolls at ones, I can't think how to make it look good and spirit of this extension is to focus everyone attention on one players spin and it's results.
 
-**video of spin with viewer here**
+![Spin](https://raw.githubusercontent.com/telador/YoggWheel/dev/docs/Spin.gif)
+
+
+### Spin with stealth
+
+While I firmly believe that this option contradicts spirit of this extension, I can find having it somewhat useful. Works just like regular spin, but doesn't show wheel and it's results to other players.
+
+![Stealth](https://raw.githubusercontent.com/telador/YoggWheel/dev/docs/Stealth.gif)
+
+### Spin History
+
+Fulltext of a spin can be long and easy to close by accident, so they will be dublicated here with timestamp and name of the player. Stealth spins are displayed only at your history. History, as wheels, saved in localStorage and mostly needed just to check some results from this or maybe last few sessions if you are lucky.  
+
+![History](https://raw.githubusercontent.com/telador/YoggWheel/dev/docs/History.gif)
 
 
 ### Broadcast
 
-Other extensions are welcome to use "com.onrender.wheel.spin" broadcast channel, which triggers viewer wheel. But it's data consists of an array of full rotation degree and stringified wheel's JSON. *I'll try to add broadcast channel to trigger just a wheel without need for rotaiton from your side in near future.*
+Other extensions are welcome to use "com.onrender.wheel.spin" broadcast channel, which triggers viewer wheel. But it's data consists of an array of full rotation degree and stringified wheel's JSON. 
+*I'll try to add broadcast channel to trigger wheel with so little as list of options for fulltext from your side in near future. And separate one for wheel results.*
 
-## Plans & Ideas
+## Credits
 
-List of features to be added when I finalize their concept or drop them:
-+ history: if you close your wheel before it ended it's spin - you don't see what you got. History panel with some timestamps may fix this issue or so I hope.
-+ broadcast: don't think it's a priority, but channel to catch wheel JSONs from other extensions can be useful. Maybe with some simplification like all color's and reaction are random so other extensions need only to send text|fulltext pairs. Or even simplify text to numbers and accept just fulltext array.   
-+ steal: still can't decide if this is good idea. Before you close your viewer wheel - steal button will save it to your wheel selection. Some 'hidden from others until it'll land on it' stuff in fulltext can be looked on without your consent - which is bad and you always can just ask for the wheel file after the game. So maybe not.
-+ hidden spin: option to roll without showing it to other players. Isn't hard, just feels contradicting to the spirit of this extension.
-+ copy-paste create: I think I can add create wheel as one big text input to just paste JSON there, but it feels unneeded with file import option and has same validation problem.  
+Used wheel design template: https://codepen.io/hexagoncircle/pen/bGqVyxm
+And thanks to @kamejosh for his help in fixing this. 

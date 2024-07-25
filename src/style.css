@@ -33,19 +33,52 @@
 }
 
 .create-panel {
+  grid-area: panel;
   display: grid;
   gap: 8px;
-  grid-template-areas: "create generate" "name add" "sector sector";
+  grid-template-areas: "name generate" "add add" "sector sector";
   grid-template-columns: repeat(2, 1fr);
-  grid-auto-rows: 1fr, 1fr, auto;
+  grid-auto-rows: 42px 42px auto;
+}
+
+#app {
+  display: grid;
+  grid-template-areas: "switch" "panel";
+  grid-template-rows: 70px auto;
+}
+
+.btns-panel {
+  align-self: normal;
+  grid-area: switch;
+  display: grid;
+  gap: 4px;
+  grid-template-areas: "sp-switch cr-switch sh-switch";
+  grid-template-columns: repeat(3, 2fr);
 }
 
 .app-panel {
+  grid-area: panel;
   display: grid;
   gap: 8px;
-  grid-template-areas: "create delete-sure" "name delete-sure" "file file" "upload . " "select select" "open download" "edit delete";
+  grid-template-areas: "name delete-sure" "file delete-sure" "upload . " "select select" "open download" "edit delete";
   grid-template-columns: repeat(2, 1fr);
   grid-auto-rows: 1fr;
+}
+
+.history-panel {
+  align-items: normal;
+  display: flex;
+  
+  flex-direction: column;
+  /**/
+  max-height: 320px;
+  overflow-y: scroll;
+  -ms-overflow-style: none;  
+  scrollbar-width: none;  
+}
+
+.history-panel::-webkit-scrollbar {
+  display: none; 
 }
 
 .delete-sure-panel {
@@ -81,7 +114,13 @@
 }
 
 .create-wheel {
-  grid-area: create;
+  grid-area: cr-switch;
+}
+.spin-wheel {
+  grid-area: sp-switch;
+}
+.spin-history {
+  grid-area: sh-switch;
 }
 
 .name-input {
@@ -124,6 +163,19 @@
   -webkit-text-size-adjust: 100%;
 }
 
+.btn-switch {
+  border-radius: 0.8em;
+  border: 1px solid transparent;
+  padding: 0.6em 1.2em;
+  font-size: 1em;
+  font-weight: 500;
+  font-family: inherit;
+  background-color: #301d64;
+  color: #fff788de;
+  cursor: pointer;
+  transition: border-color 0.25s;
+}
+
 .btn-cr {
   border-radius: 0.8em;
   border: 1px solid transparent;
@@ -146,7 +198,7 @@
 
 .scrollable-div {
   grid-area: sector;
-  max-height: 300px;
+  max-height: 200px;
   overflow-y: scroll;
   -ms-overflow-style: none;  /* IE and Edge */
   scrollbar-width: none;  /* Firefox */
@@ -183,15 +235,20 @@ body {
   align-items: center;
   grid-template-areas:
     "spinner spinner"
-    "trigger closer";
+    "trigger solo-trigger"
+    "closer closer";
   font-family: "Girassol", sans-serif;
   font-size: calc(var(--size) / 21);
   line-height: 1;
-  text-transform: lowercase;
 }
 
 .deal-wheel > * {
   grid-area: spinner;
+}
+
+.deal-wheel .btn-solo-spin{
+  grid-area: solo-trigger;
+  justify-self: center;
 }
 
 .deal-wheel .btn-spin{
@@ -270,7 +327,21 @@ ul {
   font-size: inherit;
   line-height: inherit;
   text-transform: inherit;
-  padding: 0.9rem 2rem 1rem;
+  padding: 0.6rem 2rem 1rem;
+  border-radius: 0.25rem;
+  cursor: pointer;
+  transition: opacity 200ms ease-out;
+}
+
+.btn-solo-spin{
+  color: hsl(0deg 0% 100%);
+  background: var(--lg);
+  border: none;
+  font-family: inherit;
+  font-size: inherit;
+  line-height: inherit;
+  text-transform: inherit;
+  padding: 0.6rem 2rem 1rem;
   border-radius: 0.25rem;
   cursor: pointer;
   transition: opacity 200ms ease-out;
@@ -284,7 +355,7 @@ ul {
   font-size: inherit;
   line-height: inherit;
   text-transform: inherit;
-  padding: 0.9rem 2rem 1rem;
+  padding: 0.6rem 2rem 1rem;
   border-radius: 0.25rem;
   cursor: pointer;
   transition: opacity 200ms ease-out;

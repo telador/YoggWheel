@@ -10,9 +10,10 @@
       <br>
     </div>
     <script type="module">
-      const urlp=[];let s=location.toString().split('?');s=s[1].split('&');for(let i=0;i<s.length;i++){let u=s[i].split('=');urlp[u[0]]=u[1];}
+      //const urlp=[];let s=location.toString().split('?');s=s[1].split('&');for(let i=0;i<s.length;i++){let u=s[i].split('=');urlp[u[0]]=u[1];}
       const a = document.getElementById('wheel_owner')
-      a.append(" "+decodeURIComponent(urlp['wheel_owner']).replace(/\+/g, ' ')+" is spinning a wheel ")
+      //a.append(" "+decodeURIComponent(urlp['wheel_owner']).replace(/\+/g, ' ')+" is spinning a wheel ")
+      a.append(" "+localStorage.getItem("tempWheelOwner")+" is spinning a wheel ")
     </script>
     <div class="deal-wheel">
         <ul class="spinner"></ul>

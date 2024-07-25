@@ -99,6 +99,18 @@ import OBR from '@owlbear-rodeo/sdk'
     });
   };
   
+  const spoilerPrize = () => {
+    const selected = Math.floor(rotation % 360 / prizeSlice);
+    let histLogs = localStorage.getItem('history/'+OBR.room.id)
+    if (histLogs == null) 
+      histLogs = '{"logs":[' + JSON.stringify({time: Date.now(), fulltext: prizes[selected].fulltext, color: "rgba(68, 236, 143, 0.87)", owner: localStorage.getItem("tempWheelOwner")})
+    else{
+      histLogs = histLogs.slice(0, -2)
+      histLogs += "," + JSON.stringify({time: Date.now(), fulltext: prizes[selected].fulltext, color: "rgba(68, 236, 143, 0.87)", owner: localStorage.getItem("tempWheelOwner")})
+    }
+    localStorage.setItem('history/'+OBR.room.id, histLogs + "]}")
+  };
+
   window.addEventListener("load", () => {
     if (reaper.dataset.reaction !== "resting") {
       reaper.dataset.reaction = "resting";
@@ -107,7 +119,7 @@ import OBR from '@owlbear-rodeo/sdk'
     trigger.disabled = true;
     const urlp=[];let s=location.toString().split('?');s=s[1].split('&');for(let i=0;i<s.length;i++){let u=s[i].split('=');urlp[u[0]]=u[1];}
     rotation = urlp['rotation'];
-    
+    spoilerPrize();
     prizeNodes.forEach((prize) => prize.classList.remove(selectedClass));
     wheel.classList.add(spinClass);
     spinner.style.setProperty("--rotate", rotation);
@@ -121,6 +133,7 @@ import OBR from '@owlbear-rodeo/sdk'
     OBR.popover.close("com.onrender.wheel/pop_wheel")
     localStorage.removeItem("wheel")
     localStorage.removeItem("tempWheel")
+    localStorage.removeItem("tempWheelOwner")
   })
 
   spinner.addEventListener("transitionend", () => {

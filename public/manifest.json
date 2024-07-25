@@ -1,9 +1,10 @@
 {
     "name": "Wheel of Yogg-Saron",
-    "version": "0.0.2",
+    "version": "0.0.3",
     "manifest_version": 1,
     "author": "Teiador",
     "description": "Random wheels powered by the one to whom your destiny is bound. Trust was your failure. He will devour the world.",
+    "homepage_url": "https://github.com/telador/YoggWheel/blob/dev/docs/store.md",
     "icon": "/icon.svg",
     "action": {
         "title": " <maniacal cackling>",

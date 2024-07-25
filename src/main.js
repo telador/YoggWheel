@@ -1,9 +1,15 @@
 import OBR from '@owlbear-rodeo/sdk'
 import '/src/style.css'
 let app = document.querySelector("#app");
+app.style.alignSelf = "normal";
+app.style.alignItems = "center";
 app.innerHTML= `
+<div class="btns-panel">
+    <button class="spin-wheel btn-switch" style="min-width: 80px; max-height: 60px">Spin Wheel</button>
+    <button class="create-wheel btn-switch" style="min-width: 80px; max-height: 60px">Create Wheel</button>
+    <button class="spin-history btn-switch" style="min-width: 80px; max-height: 60px">Spin History</button>
+</div>
 <div class="app-panel panel">
-    <button class="create-wheel btn-cr" style="min-width: 150px">Create Wheel</button>
     <div class="delete-sure-panel">
         <input class="delete-sure-input" type="text" maxlenght="7" placeholder="Type DETETE to confirm">
         <button class="delete-sure btn-cr">I'm sure.</button>
@@ -20,7 +26,6 @@ app.innerHTML= `
     <button class="delete-wheel btn-cr">Delete</button>
 </div>
 <div class="create-panel panel" style="display: none;">
-    <button class="create-wheel btn-cr" style="min-width: 150px">Spin Wheel</button>
     <input class="name-input" type="text" maxlength="20" placeholder="Wheel Name" />
     <input type="number" id="sector_count" value=0 hidden></input>
     <input type="number" id="sector_id" value=1 hidden></input>
@@ -35,20 +40,25 @@ app.innerHTML= `
             <option value="shocked">Shocked</option>
         </select>
         <button class="delete-sector btn-cr">
-<svg width="20px" height="20px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M18.7069 7.79289C19.0974 8.18342 19.0974 8.81658 18.7069 9.20711L15.914 12L18.7069 14.7929C19.0974 15.1834 19.0974 15.8166 18.7069 16.2071C18.3163 16.5976 17.6832 16.5976 17.2926 16.2071L14.4998 13.4142L11.7069 16.2071C11.3163 16.5976 10.6832 16.5976 10.2926 16.2071C9.90212 15.8166 9.90212 15.1834 10.2926 14.7929L13.0855 12L10.2926 9.20711C9.90212 8.81658 9.90212 8.18342 10.2926 7.79289C10.6832 7.40237 11.3163 7.40237 11.7069 7.79289L14.4998 10.5858L17.2926 7.79289C17.6832 7.40237 18.3163 7.40237 18.7069 7.79289Z" fill="#fff788"></path> <path fill-rule="evenodd" clip-rule="evenodd" d="M6.30958 3.54424C7.06741 2.56989 8.23263 2 9.46699 2H20.9997C21.8359 2 22.6103 2.37473 23.1614 2.99465C23.709 3.61073 23.9997 4.42358 23.9997 5.25V18.75C23.9997 19.5764 23.709 20.3893 23.1614 21.0054C22.6103 21.6253 21.8359 22 20.9997 22H9.46699C8.23263 22 7.06741 21.4301 6.30958 20.4558L0.687897 13.2279C0.126171 12.5057 0.126169 11.4943 0.687897 10.7721L6.30958 3.54424ZM9.46699 4C8.84981 4 8.2672 4.28495 7.88829 4.77212L2.2666 12L7.88829 19.2279C8.2672 19.7151 8.84981 20 9.46699 20H20.9997C21.2244 20 21.4674 19.9006 21.6665 19.6766C21.8691 19.4488 21.9997 19.1171 21.9997 18.75V5.25C21.9997 4.88294 21.8691 4.5512 21.6665 4.32337C21.4674 4.09938 21.2244 4 20.9997 4H9.46699Z" fill="#fff788"></path> </g></svg>
-</div>
+            <svg width="20px" height="20px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M18.7069 7.79289C19.0974 8.18342 19.0974 8.81658 18.7069 9.20711L15.914 12L18.7069 14.7929C19.0974 15.1834 19.0974 15.8166 18.7069 16.2071C18.3163 16.5976 17.6832 16.5976 17.2926 16.2071L14.4998 13.4142L11.7069 16.2071C11.3163 16.5976 10.6832 16.5976 10.2926 16.2071C9.90212 15.8166 9.90212 15.1834 10.2926 14.7929L13.0855 12L10.2926 9.20711C9.90212 8.81658 9.90212 8.18342 10.2926 7.79289C10.6832 7.40237 11.3163 7.40237 11.7069 7.79289L14.4998 10.5858L17.2926 7.79289C17.6832 7.40237 18.3163 7.40237 18.7069 7.79289Z" fill="#fff788"></path> <path fill-rule="evenodd" clip-rule="evenodd" d="M6.30958 3.54424C7.06741 2.56989 8.23263 2 9.46699 2H20.9997C21.8359 2 22.6103 2.37473 23.1614 2.99465C23.709 3.61073 23.9997 4.42358 23.9997 5.25V18.75C23.9997 19.5764 23.709 20.3893 23.1614 21.0054C22.6103 21.6253 21.8359 22 20.9997 22H9.46699C8.23263 22 7.06741 21.4301 6.30958 20.4558L0.687897 13.2279C0.126171 12.5057 0.126169 11.4943 0.687897 10.7721L6.30958 3.54424ZM9.46699 4C8.84981 4 8.2672 4.28495 7.88829 4.77212L2.2666 12L7.88829 19.2279C8.2672 19.7151 8.84981 20 9.46699 20H20.9997C21.2244 20 21.4674 19.9006 21.6665 19.6766C21.8691 19.4488 21.9997 19.1171 21.9997 18.75V5.25C21.9997 4.88294 21.8691 4.5512 21.6665 4.32337C21.4674 4.09938 21.2244 4 20.9997 4H9.46699Z" fill="#fff788"></path> </g></svg>
+    </div>
     <button class="add-sector btn-cr">+</button>
     <button class="generate-wheel btn-cr">Generate</button>
     <div class="scrollable-div"></div>
 </div>
+
+<div class="history-panel panel" style="display: none;">
+    <input id="hasNew" value=0 hidden>
+</div>
 `
+
 OBR.onReady(() => {
     const select = document.getElementsByClassName('wheel-select')[0]
     const open = document.getElementsByClassName('open-wheel')[0]
     const form = document.getElementsByClassName('upload-button')[0]
     const file = document.getElementsByClassName('file-input')[0]
     const name = document.getElementsByClassName('name-input')[0]
-    const switch_btn = document.getElementsByClassName('create-wheel')
+    const switch_btn = document.getElementsByClassName('btn-switch')
     const add = document.getElementsByClassName('add-sector')[0]
     const gen = document.getElementsByClassName('generate-wheel')[0]
     const save = document.getElementsByClassName('download-wheel')[0]
@@ -60,12 +70,70 @@ OBR.onReady(() => {
     for (let i = 0; i < switch_btn.length; i++){
         
         switch_btn[i].addEventListener("click", () => {
-            for (let j = 1; j <= panels.length; j++){
-                panels[j%panels.length].style.display =  ((i == j-1) ? "grid" : "none");
+            if (i == 2) {
+                fillHistoryFromLogs().then(()=>{
+                    const newLine = document.getElementById("newLine");
+                    if (newLine != undefined){
+                        newLine.scrollIntoView({behavior: "instant", block: "end"})
+                    } else
+                        history.scrollTo({top: history.scrollHeight, behavior: "instant"})
+                })
             }
-            app.style.alignSelf = ((i == 0) ? "normal" : "center");
+            for (let j = 0; j < panels.length; j++){
+                panels[j].style.display =  ((i == j) ? ((i==2) ? "flex" : "grid") : "none");
+            }
+            app.style.alignItems = ((i == 1 || i == 2) ? "normal" : "center");
+            
         });
     }
+
+    function getDiv(content, hist=false){
+        const el = document.createElement('div')
+        if (hist){
+            const elTime = document.createElement('div')
+            elTime.textContent = (Intl.DateTimeFormat('ua', {month: "long", day: "numeric"}).format(content["time"]) + ', ' + Intl.DateTimeFormat('en', {hour: '2-digit', minute: '2-digit', second: '2-digit'}).format(content['time']) + " for "
+             + (content["owner"] != undefined ? content["owner"] : "You")); 
+            elTime.style.textDecoration = "underline overline";
+            elTime.style.webkitTextFillColor = content["color"] != undefined ? content["color"] : "rgba(255, 247, 136, 0.87)"
+            el.style.webkitTextFillColor = elTime.style.webkitTextFillColor; 
+            el.appendChild(elTime)
+        }
+        
+        el.append(content["fulltext"])
+        return el;
+    }    
+
+    const history = document.querySelector(".history-panel")
+    async function fillHistoryFromLogs(start = false){
+        if (localStorage.getItem('history/'+OBR.room.id) == null){
+            return;
+        }
+        let hasNew = document.getElementById("hasNew");
+        const histLogs = JSON.parse(localStorage.getItem('history/'+OBR.room.id))["logs"]
+        const oldNewLine = document.querySelector("#newLine")
+        if (!start && hasNew.value < histLogs.length && oldNewLine == undefined){
+            let newLine = document.createElement('div')
+            newLine.id = "newLine";
+            newLine.style.textAlign = "center";
+            newLine.innerHTML = (`<hr style="border: 2px solid rgb(240, 144, 114); margin: 0; position: relative; top: 3px;"><a style="background: rgb(240, 144, 114); color: white; border-radius: 0px 0px 30% 30%; margin-top: -3px; padding: 0px 5px;">new</a>`)
+            history.appendChild(newLine);
+        }
+        for (let i = hasNew.value; i < histLogs.length; i++){
+            
+            history.appendChild(getDiv(histLogs[i], true));
+        }
+        hasNew.value = histLogs.length;
+    }  
+
+    history.addEventListener("scrollend", () => {
+        if (history.scrollHeight - history.clientHeight - history.scrollTop == 0) {
+            const oldNewLine = document.querySelector("#newLine")
+            if (oldNewLine != undefined)
+                oldNewLine.remove();
+        }
+    });
+
+    fillHistoryFromLogs(true);
 
     edit.addEventListener("click", () => {
         if (select.value != ''){
@@ -144,10 +212,10 @@ OBR.onReady(() => {
         if(counter.value != 0 && newName.value != ''){
             const k = sectors.children
             let str = '{\n\t"prizes":['
-                console.log(k)
+                //console.log(k)
             for (let t = 0; t < k.length; t++){
                 let p = k[t].children
-                console.log(p)
+                //console.log(p)
                 if (str.slice(-1) != '[')
                     str += ','
                 str += "\n"+JSON.stringify({text: p[0].value, fulltext: p[1].value, color: p[2].value, reaction: p[3].value});
@@ -243,6 +311,7 @@ OBR.onReady(() => {
                 }
             }
             localStorage.setItem("tempWheel", event.data[1]);
+            localStorage.setItem("tempWheelOwner", name);
             OBR.popover.open({
                 id: "com.onrender.wheel/pop_wheel",
                 url: "/src/wheel_viewer.html?"+("&rotation="+event.data[0])+("&wheel_owner="+encodeURIComponent(name)),

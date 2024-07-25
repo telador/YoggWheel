@@ -15,6 +15,7 @@ import OBR from '@owlbear-rodeo/sdk'
   const wheel = document.querySelector(".deal-wheel");
   const spinner = wheel.querySelector(".spinner");
   const trigger = wheel.querySelector(".btn-spin");
+  const soloTrigger = wheel.querySelector(".btn-solo-spin");
   const closer = wheel.querySelector(".btn-close");
   const ticker = wheel.querySelector(".ticker");
   const reaper = wheel.querySelector(".grim-reaper");
@@ -106,14 +107,28 @@ import OBR from '@owlbear-rodeo/sdk'
     });
   };
   
+  const spoilerPrize = (stealth = false) => {
+    const selected = Math.floor(rotation % 360 / prizeSlice);
+    let histLogs = localStorage.getItem('history/'+OBR.room.id)
+    if (histLogs == null) 
+      histLogs = '{"logs":[' + JSON.stringify({time: Date.now(), fulltext: prizes[selected].fulltext, color: stealth ? "rgba(200, 192, 122, 0.87)" : "rgba(255, 247, 136, 0.87)"})
+    else{
+      histLogs = histLogs.slice(0, -2)
+      histLogs += "," + JSON.stringify({time: Date.now(), fulltext: prizes[selected].fulltext, color: stealth ? "rgba(200, 192, 122, 0.87)" : "rgba(255, 247, 136, 0.87)"})
+    }
+    localStorage.setItem('history/'+OBR.room.id, histLogs + "]}")
+  };
+
   trigger.addEventListener("click", () => {
     if (reaper.dataset.reaction !== "resting") {
       reaper.dataset.reaction = "resting";
     }
   
     trigger.disabled = true;
+    soloTrigger.disabled = true;
     rotation = Math.floor(Math.random() * 360 + spinertia(2000, 5000));
     OBR.broadcast.sendMessage("com.onrender.wheel.spin", [""+rotation, str]);
+    spoilerPrize();
     prizeNodes.forEach((prize) => prize.classList.remove(selectedClass));
     wheel.classList.add(spinClass);
     spinner.style.setProperty("--rotate", rotation);
@@ -123,6 +138,7 @@ import OBR from '@owlbear-rodeo/sdk'
   
   closer.addEventListener("click", ()=> {
     trigger.disabled = true;
+    soloTrigger.disabled = true;
     closer.disabled = true;
     OBR.modal.close("com.onrender.wheel/modal")
     localStorage.removeItem("wheel")
@@ -131,6 +147,7 @@ import OBR from '@owlbear-rodeo/sdk'
   spinner.addEventListener("transitionend", () => {
     cancelAnimationFrame(tickerAnim);
     trigger.disabled = false;
+    soloTrigger.disabled = false;
     trigger.focus();
     rotation %= 360;
     selectPrize();
@@ -138,6 +155,23 @@ import OBR from '@owlbear-rodeo/sdk'
     spinner.style.setProperty("--rotate", rotation);
   });
   
+  soloTrigger.addEventListener("click", () => {
+    if (reaper.dataset.reaction !== "resting") {
+      reaper.dataset.reaction = "resting";
+    }
+  
+    trigger.disabled = true;
+    soloTrigger.disabled = true;
+    rotation = Math.floor(Math.random() * 360 + spinertia(2000, 5000));
+    spoilerPrize(true);
+    //OBR.broadcast.sendMessage("com.onrender.wheel.spin", [""+rotation, str]);
+    prizeNodes.forEach((prize) => prize.classList.remove(selectedClass));
+    wheel.classList.add(spinClass);
+    spinner.style.setProperty("--rotate", rotation);
+    ticker.style.animation = "none";
+    runTickerAnimation();
+  });
+
   setupWheel();
 
   
