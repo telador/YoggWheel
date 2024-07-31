@@ -1,16 +1,75 @@
 import OBR from '@owlbear-rodeo/sdk'
 
-  let prizes = [
-    { 
-      text: "Nothing",
-      fulltext: "Big ol' nothing",
-      color: "hsl(43 74% 66%)",
-      reaction: "shocked" 
-    }
-  ];
+  
   const str = localStorage.getItem(localStorage.getItem("wheel"));
-  prizes = JSON.parse(str)["prizes"];
-    
+  let wheelJson = JSON.parse(str);
+  
+  let i = 0;
+  let fractions = [0];
+  function bsf(target) {
+    let left = 0;
+    let right = fractions.length - 1;
+    let result = -1;
+    while (left <= right) {
+        let mid = Math.floor((left + right) / 2);
+
+        if (fractions[mid] >= target) {
+            result = mid;
+            right = mid - 1;
+        } else {
+            left = mid + 1;
+        }
+    }
+    return result;
+  }
+
+  function nextI() {
+    i += 1;
+    return i;
+  }
+  
+  function getRandomColor() {
+    let r, g, b, brightness;
+    do {
+      r = Math.floor(Math.random() * 256);
+      g = Math.floor(Math.random() * 256);
+      b = Math.floor(Math.random() * 256);
+      brightness = (r * 299 + g * 587 + b * 114) / 1000;
+    } while (brightness < 70 || brightness > 190);
+    return "#" + (1 << 24 | r << 16 | g << 8 | b).toString(16).slice(1);
+  }
+  
+  const defaultValues = {
+    text: 1,
+    fulltext: "Nothing :)",
+    reaction: "resting",
+    color: "green",
+    fraction: 1
+  };
+  
+  function process() {
+    let prizes = [];
+    for (let sector of wheelJson["prizes"]) {
+      let newSector = structuredClone(defaultValues);
+      for (let key of Object.keys(defaultValues)) {
+          if (sector[key] !== undefined){
+            newSector[key] = sector[key];
+          } else {
+            if (key === "text")
+              newSector[key] = nextI();
+            else if (key === "color")
+              newSector[key] = getRandomColor();
+            else
+              newSector[key] = defaultValues[key]; 
+          }
+      }
+      fractions.push(fractions[fractions.length - 1] + Number(newSector["fraction"]));
+      prizes.push(newSector);
+    }
+    return prizes;
+  }
+
+  let prizes = process();
 
   const wheel = document.querySelector(".deal-wheel");
   const spinner = wheel.querySelector(".spinner");
@@ -29,13 +88,21 @@ import OBR from '@owlbear-rodeo/sdk'
   let currentSlice = 0;
   let prizeNodes;
   
+
+  function targetAngle(target){
+    let n = bsf(target);
+    const angle = (n-1) * prizeSlice + Math.random() * prizeSlice;
+    return angle; 
+  }
+
   const createPrizeNodes = () => {
+    const fontSize = -0.0186 * prizes.length + 1.9721;
     prizes.forEach(({ text, color, reaction }, i) => {
       const rotation = ((prizeSlice * i) * -1) - prizeOffset;
       
       spinner.insertAdjacentHTML(
         "beforeend",
-        `<li class="prize" data-reaction=${reaction} style="--rotate: ${rotation}deg">
+        `<li class="prize" data-reaction=${reaction} style="--rotate: ${rotation}deg; font-size: ${fontSize}rem;">
           <span class="text"></span>
         </li>`
       );
@@ -126,7 +193,9 @@ import OBR from '@owlbear-rodeo/sdk'
   
     trigger.disabled = true;
     soloTrigger.disabled = true;
-    rotation = Math.floor(Math.random() * 360 + spinertia(2000, 5000));
+    let tmp = spinertia(1, fractions[fractions.length-1]);
+    //console.log(tmp);
+    rotation = Math.floor(targetAngle(tmp) + spinertia(5, 15) * 360);
     OBR.broadcast.sendMessage("com.onrender.wheel.spin", [""+rotation, str]);
     spoilerPrize();
     prizeNodes.forEach((prize) => prize.classList.remove(selectedClass));
@@ -162,7 +231,9 @@ import OBR from '@owlbear-rodeo/sdk'
   
     trigger.disabled = true;
     soloTrigger.disabled = true;
-    rotation = Math.floor(Math.random() * 360 + spinertia(2000, 5000));
+    let tmp = spinertia(1, fractions[fractions.length-1]);
+    //console.log(tmp);
+    rotation = Math.floor(targetAngle(tmp) + spinertia(5, 15) * 360);
     spoilerPrize(true);
     //OBR.broadcast.sendMessage("com.onrender.wheel.spin", [""+rotation, str]);
     prizeNodes.forEach((prize) => prize.classList.remove(selectedClass));

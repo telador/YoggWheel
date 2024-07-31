@@ -39,6 +39,7 @@ Upper limits of how big of a wheel is possible were not tested, but I wouldn't t
 + text: displayed on the wheel; max lenght of 20 characters; by default filled with sector's number
 + fulltext: displayed in pop-up, if this sector wins the roll
 + color: paint sector's background in that color; by default assigned random color on creation
++ fraction: if you want uneven odds just write how many fractions of the whole you assign to this field. Will not change sector size
 + reaction: one of 4 animations of grim reaper at the center of wheel which will be played if this sector wins; resting animation is active at other times
 + delete button: *Madness will consume you! < death sound >*; Oh, there is no restore button and it isn't planned. Keep it in mind, while wielding such corrupting force.
 
@@ -52,42 +53,43 @@ When you choose to edit a wheel it's sectors will be placed under already create
 
 ### Delete wheel
 
-*Hope is an illusion!*
+*Hope is an illusion!* \
 Delete button will trigger simple confirmation section. *And it will haunt you as the lucid dream... The monster in your nightmares... The fiend of a thousand faces... And the progenitor of your demise!* Unless you sacrifice one of your wheels, trick it feeding 'None' option to it or refresh the page. Wanted to make that it'll also vanish back to it's abyss if you change selected wheel, but I like current gimmick more..
 
 ![Delete](https://raw.githubusercontent.com/telador/YoggWheel/dev/docs/Delete.gif)
 
 ### Download
 
-Not much to say here. If you lost JSON file of a wheel when it was created you can just choose that wheel and hit download. Save important wheels somewhere, for extension purposes they are in localStorage and will be sent to the abyss from time to time and on cache clearings.
+Not much to say here. If you lost JSON file of a wheel when it was created you can just choose that wheel and hit download. Save important wheels somewhere, for extension purposes they are in localStorage and will be sent to the abyss from time to time and on cache clearings. \
 *To continue spreading the influence of Ulduar's Prisoner, until he's chained no more.*
 
 ### Spin and share
 
 There is no option to spin just for yourself or to limit who will see the wheel. Other players in the room will see scaled down version of your spin with your name above it and some delay. Please have mercy on me and don't demant so it'll work when 2+ players rolls at ones, I can't think how to make it look good and spirit of this extension is to focus everyone attention on one players spin and it's results.
 
-![Spin](https://raw.githubusercontent.com/telador/YoggWheel/dev/docs/Spin.gif)
+https://github.com/user-attachments/assets/7defe874-86f9-4519-9b5c-7da9d39c0178
 
 
 ### Spin with stealth
 
 While I firmly believe that this option contradicts spirit of this extension, I can find having it somewhat useful. Works just like regular spin, but doesn't show wheel and it's results to other players.
 
-![Stealth](https://raw.githubusercontent.com/telador/YoggWheel/dev/docs/Stealth.gif)
+https://github.com/user-attachments/assets/47368e34-e952-4c4f-9538-7ef9308fe4e3
+
 
 ### Spin History
 
 Fulltext of a spin can be long and easy to close by accident, so they will be dublicated here with timestamp and name of the player. Stealth spins are displayed only at your history. History, as wheels, saved in localStorage and mostly needed just to check some results from this or maybe last few sessions if you are lucky.  
 
-![History](https://raw.githubusercontent.com/telador/YoggWheel/dev/docs/History.gif)
+https://github.com/user-attachments/assets/b9a6badc-2d5a-4393-b962-586133b2ff3d
 
 
 ### Broadcast
 
-Other extensions are welcome to use "com.onrender.wheel.spin" broadcast channel, which triggers viewer wheel. But it's data consists of an array of full rotation degree and stringified wheel's JSON. 
+Other extensions are welcome to use "com.onrender.wheel.spin" broadcast channel, which triggers viewer wheel. But it's data consists of an array of full rotation degree and stringified wheel's JSON. \
 *I'll try to add broadcast channel to trigger wheel with so little as list of options for fulltext from your side in near future. And separate one for wheel results.*
 
 ## Credits
 
-Used wheel design template: https://codepen.io/hexagoncircle/pen/bGqVyxm
-And thanks to @kamejosh for his help in fixing this. 
++ Used wheel design template: https://codepen.io/hexagoncircle/pen/bGqVyxm
++ And thanks to @kamejosh for his help in fixing this. 

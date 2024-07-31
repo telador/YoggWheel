@@ -33,6 +33,7 @@ app.innerHTML= `
         <input class="text-input" type="text" placeholder="text"></input>
         <input class="fulltext-input" type="text" placeholder="fulltext"></input>
         <input class="color-input" type="color"></input>
+        <input class="fraction-input" type="number" value="1"></input>
         <select class="reaction-select">
             <option value="resting">Resting</option>
             <option value="dancing">Dancing</option>
@@ -137,7 +138,7 @@ OBR.onReady(() => {
 
     edit.addEventListener("click", () => {
         if (select.value != ''){
-            switch_btn[0].click()
+            switch_btn[1].click()
             let newName = document.getElementsByClassName('name-input')[1]
             newName.value = select.value.slice(0, -2);
             const prizes = JSON.parse(localStorage.getItem(select.value))["prizes"];
@@ -156,7 +157,8 @@ OBR.onReady(() => {
                 sector[0].value = prizes[i]["text"]
                 sector[1].value = prizes[i]["fulltext"]
                 sector[2].value = prizes[i]["color"]
-                sector[3].value = prizes[i]["reaction"];
+                sector[3].value = prizes[i]["fraction"]
+                sector[4].value = prizes[i]["reaction"];
             }
         }
     });
@@ -197,13 +199,15 @@ OBR.onReady(() => {
     });
 
     function getRandomColor() {
-        var letters = '0123456789ABCDEF';
-        var color = '#';
-        for (var i = 0; i < 6; i++) {
-          color += letters[Math.floor(Math.random() * 16)];
-        }
-        return color;
-      }
+        let r, g, b, brightness;
+        do {
+            r = Math.floor(Math.random() * 256);
+            g = Math.floor(Math.random() * 256);
+            b = Math.floor(Math.random() * 256);
+            brightness = (r * 299 + g * 587 + b * 114) / 1000;
+        } while (brightness < 70 || brightness > 190);
+        return "#" + (1 << 24 | r << 16 | g << 8 | b).toString(16).slice(1);
+    }
 
     gen.addEventListener("click", () => {
         const counter = document.getElementById('sector_count')
@@ -218,7 +222,7 @@ OBR.onReady(() => {
                 //console.log(p)
                 if (str.slice(-1) != '[')
                     str += ','
-                str += "\n"+JSON.stringify({text: p[0].value, fulltext: p[1].value, color: p[2].value, reaction: p[3].value});
+                str += "\n"+JSON.stringify({text: p[0].value, fulltext: p[1].value, color: p[2].value, fraction: Number(p[3].value), reaction: p[4].value});
                 
             }
             
@@ -227,7 +231,7 @@ OBR.onReady(() => {
             updateSelect();
             select.value = newName.value+"SW"
             save.click()
-            switch_btn[1].click()
+            switch_btn[0].click()
         }
     });
 
@@ -236,11 +240,10 @@ OBR.onReady(() => {
         let sector_id = document.getElementById('sector_id')
         let sector_count = document.getElementById('sector_count')
         let el = or.cloneNode(true)
-        el.style.display = "grid"
-
+        el.style.display = "grid";
         el.children[0].value = ""+sector_id.value
         el.children[2].value = getRandomColor()
-        const del_b = el.children[4]
+        const del_b = el.children[5]
         del_b.addEventListener("click", () => {
             let sector_count = document.getElementById('sector_count')
             sector_count--

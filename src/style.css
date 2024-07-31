@@ -7,8 +7,8 @@
 .sector {
   display: grid;
   gap: 5px;
-  grid-template-areas: "text fulltext fulltext" "color reaction delete";
-  grid-template-columns: 1fr 2fr 1fr;
+  grid-template-areas: "text text fulltext fulltext" "color fraction reaction delete";
+  grid-template-columns: 1fr 1fr 3fr 1fr;
   grid-auto-rows: 0.8fr;
 
 }
@@ -125,6 +125,11 @@
 
 .name-input {
   grid-area: name;
+}
+
+.fraction-input{
+  grid-area: fraction;
+  max-width: 50px;
 }
 
 .file-input {
@@ -279,7 +284,11 @@ body {
 ul {
   padding-inline-start: 0px;
 }
+
+
 .prize {
+  font-size: 0.8rem;
+  
   position: relative;
   display: flex;
   align-items: center;
@@ -304,7 +313,7 @@ ul {
   display: none;
 }
 
-.cap svg {
+.cap svg .not-so-grim{
   width: 100%;
 }
 
@@ -415,6 +424,12 @@ ul {
   }
 }
 
+
+.not-so-grim {
+  height: 350px;
+  width: 350px;
+  /*object-fit: scale-down; /**/
+}
 
 /* Grim Reaper animations */
 .grim-reaper {
