@@ -69,6 +69,22 @@ import OBR from '@owlbear-rodeo/sdk'
     return prizes;
   }
 
+  function capReplacement(){
+    if (wheelJson["wheel"] !== undefined && wheelJson["wheel"][0]["url"] !== undefined){
+      let capImage = document.querySelector(".not-so-grim");
+      let cap = document.querySelector(".cap");
+      let alterCap = document.querySelector(".alter-cap");
+      cap.style.display = "none";
+      alterCap.style.display = "block";
+      capImage.src = wheelJson["wheel"][0]["url"];
+      if (wheelJson["wheel"][0]["size"] !== undefined){
+        alterCap.style.maxWidth = `${wheelJson["wheel"][0]["size"]}%`;
+        alterCap.style.maxHeight = `${wheelJson["wheel"][0]["size"]}%`;
+      }
+    }
+  }
+
+  capReplacement();
   let prizes = process();
 
   const wheel = document.querySelector(".deal-wheel");

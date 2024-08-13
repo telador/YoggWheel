@@ -36,9 +36,9 @@
   grid-area: panel;
   display: grid;
   gap: 8px;
-  grid-template-areas: "name generate" "add add" "sector sector";
+  grid-template-areas: "name generate" "add extra" "extra-panel extra-panel" "sector sector";
   grid-template-columns: repeat(2, 1fr);
-  grid-auto-rows: 42px 42px auto;
+  grid-auto-rows: 42px 42px auto auto;
 }
 
 #app {
@@ -61,7 +61,7 @@
   display: grid;
   gap: 8px;
   grid-template-areas: "name delete-sure" "file delete-sure" "upload . " "select select" "open download" "edit delete";
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: repeat(2, 188px);
   grid-auto-rows: 1fr;
 }
 
@@ -103,6 +103,14 @@
 
 .delete-wheel {
   grid-area: delete;
+}
+
+.extra-wheel {
+  grid-area: extra;
+}
+
+.wheel-extra {
+  grid-area: extra-panel;
 }
 
 .add-sector {
@@ -203,7 +211,7 @@
 
 .scrollable-div {
   grid-area: sector;
-  max-height: 200px;
+  max-height: 170px;
   overflow-y: scroll;
   -ms-overflow-style: none;  /* IE and Edge */
   scrollbar-width: none;  /* Firefox */
@@ -306,6 +314,15 @@ ul {
   justify-self: center;
   width: var(--cap-size);
   height: var(--cap-size);
+}
+
+.alter-cap {
+  --cap-size: calc(var(--size));
+  position: relative;
+  justify-self: center;
+  width: var(--cap-size);
+  height: var(--cap-size);
+  margin: 0px 0px 0px 0px;
 }
 
 /* Hide select dropdown from SVG import file */
@@ -426,9 +443,10 @@ ul {
 
 
 .not-so-grim {
-  height: 350px;
-  width: 350px;
-  /*object-fit: scale-down; /**/
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
 }
 
 /* Grim Reaper animations */

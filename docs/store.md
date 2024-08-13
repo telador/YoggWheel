@@ -47,7 +47,8 @@ Upper limits of how big of a wheel is possible were not tested, but I wouldn't t
 
 ### Edit wheel
 
-When you choose to edit a wheel it's sectors will be placed under already created sectors in Create wheel panel and it's name will be written instead of what was there before. This actions were chosen as good compromise between usecases of 'creating a new wheel with sectors of already existing one', 'adding new sectors to change existing wheel' and 'fixing typos in a wheel'.
+When you choose to edit a wheel it's sectors will be placed under already created sectors in Create wheel panel and it's name will be written instead of what was there before. This actions were chosen as good compromise between usecases of 'creating a new wheel with sectors of already existing one', 'adding new sectors to change existing wheel' and 'fixing typos in a wheel'. \
+In small section opened by 'Extra' button you can input url and size to replace grim reaper cap to something else.
 
 ![Edit](https://raw.githubusercontent.com/telador/YoggWheel/dev/docs/Edit.gif)
 
