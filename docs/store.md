@@ -87,8 +87,35 @@ https://github.com/user-attachments/assets/b9a6badc-2d5a-4393-b962-586133b2ff3d
 
 ### Broadcast
 
-Other extensions are welcome to use "com.onrender.wheel.spin" broadcast channel, which triggers viewer wheel. But it's data consists of an array of full rotation degree and stringified wheel's JSON. \
-*I'll try to add broadcast channel to trigger wheel with so little as list of options for fulltext from your side in near future. And separate one for wheel results.*
+Other extensions are welcome to use "com.onrender.wheel.spin" broadcast channel if you know what rotation angle you need, but better way will be "com.onrender.wheel.port" channel. You need only to send in data property JSON.strigify of whatever wheel you want(limited to 16kb). \
+You don't need to provide full description of each prize, missing values will be filled as defaults. And you can skip "wheel" part if you don't need alternative cap image and fine with grim reaper. \
+Example of JSON:
+```
+{
+   "prizes":[
+      {
+         "text":"H",
+         "fulltext":"H",
+         "color":"#8457f4",
+         "fraction":1,
+         "reaction":"resting"
+      },
+      {
+         "text":"T",
+         "fulltext":"T",
+         "color":"#bbf816",
+         "fraction":1,
+         "reaction":"resting"
+      }
+   ],
+   "wheel":[
+      {
+         "url":"https://i.gifer.com/origin/e0/e02ce86bcfd6d1d6c2f775afb3ec8c01_w200.gif",
+         "size":"35"
+      }
+   ]
+}
+```
 
 ## Credits
 

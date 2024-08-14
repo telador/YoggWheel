@@ -359,4 +359,17 @@ OBR.onReady(() => {
         OBR.party.getPlayers().then((party) => getName(party))
         
     });
+
+    OBR.broadcast.onMessage("com.onrender.wheel.port", (event) =>{
+        console.log(event.data);
+        localStorage.setItem("ported", event.data);
+        localStorage.setItem("wheel", "ported");
+        OBR.modal.open({
+            id: "com.onrender.wheel/modal",
+            url: "/src/wheel.html",
+            hidePaper: true,
+            hideBackdrop: true,
+            fullScreen: true
+        });
+    });
 });
