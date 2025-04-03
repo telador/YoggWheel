@@ -1,5 +1,7 @@
 import OBR from '@owlbear-rodeo/sdk'
+import MersenneTwister from 'mersenne-twister';
 
+var gen = new MersenneTwister(1999);
   
   const str = localStorage.getItem(localStorage.getItem("wheel"));
   let wheelJson = JSON.parse(str);
@@ -107,7 +109,7 @@ import OBR from '@owlbear-rodeo/sdk'
 
   function targetAngle(target){
     let n = bsf(target);
-    const angle = (n-1) * prizeSlice + Math.random() * prizeSlice;
+    const angle = (n-1) * prizeSlice + gen.random() * prizeSlice;
     return angle; 
   }
 
@@ -150,7 +152,7 @@ import OBR from '@owlbear-rodeo/sdk'
   const spinertia = (min, max) => {
     min = Math.ceil(min);
     max = Math.floor(max);
-    return Math.floor(Math.random() * (max - min + 1)) + min;
+    return Math.floor(gen.random() * (max - min + 1)) + min;
   };
   
   const runTickerAnimation = () => {
