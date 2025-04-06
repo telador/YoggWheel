@@ -1,7 +1,7 @@
 import OBR from '@owlbear-rodeo/sdk'
 import MersenneTwister from 'mersenne-twister';
 
-var gen = new MersenneTwister(1999);
+var gen = new MersenneTwister();
   
   const str = localStorage.getItem(localStorage.getItem("wheel"));
   let wheelJson = JSON.parse(str);
