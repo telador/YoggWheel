@@ -152,6 +152,7 @@ var gen = new MersenneTwister();
   const spinertia = (min, max) => {
     min = Math.ceil(min);
     max = Math.floor(max);
+    gen = new MersenneTwister();
     return Math.floor(gen.random() * (max - min + 1)) + min;
   };
   
