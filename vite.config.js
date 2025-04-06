@@ -10,8 +10,5 @@ export default {
                 popover: path.resolve(__dirname, "src/popover.html")
             }
         }
-    },
-    server: {
-        cors: true
     }
 }
